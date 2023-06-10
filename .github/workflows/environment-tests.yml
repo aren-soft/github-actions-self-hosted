@@ -1,0 +1,28 @@
+name: Environment tests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**environment-tests.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: echo Build
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: 'dev'
+    needs: build
+    steps:
+      - name: Deploy DEV
+        run: echo Deploy in DEV environment
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: 'prod'
+    needs: [build, deploy-dev]
+    steps:
+      - name: Deploy PRD
+        run: echo Deploy in PRD environment
