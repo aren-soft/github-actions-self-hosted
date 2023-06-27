@@ -1,7 +1,9 @@
 name: Env tests
 on:
-  push:
   workflow_dispatch:
+  push:
+    paths:
+      - '**env-test.yml'
 env:
   HTTP_PROXY: $AZURE_RUNNER_HTTP_PROXY
 jobs:
