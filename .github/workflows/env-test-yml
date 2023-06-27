@@ -1,0 +1,35 @@
+name: CICD UCB Jenkins Azure
+on:
+  push:
+  workflow_dispatch:
+env:
+  HTTP_PROXY = $AZURE_RUNNER_HTTP_PROXY
+  
+jobs:
+
+  build:
+    name: Env tests
+    #runs-on: [unity-azure-linux-runners]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # For actions/checkout
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set IMAGE_TAG
+        id: generate-tag
+        run: echo "IMAGE_TAG=${GITHUB_SHA:0:8}" >> $GITHUB_OUTPUT
+
+      - name: Generate summary
+        id: env-setup
+        run: |
+          {
+            echo "### Workflow summary"
+            echo "| Variable | Value |"
+            echo "| -------- | ----- |"
+            echo "| Test | ${{ env.HTTP_PROXY }} |"
+            echo "| Original | ${{ env.AZURE_RUNNER_HTTP_PROXY }} |"
+          } >> $GITHUB_STEP_SUMMARY 
+      
