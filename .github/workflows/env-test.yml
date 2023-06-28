@@ -28,7 +28,7 @@ jobs:
         run: |
           echo $GITHUB_SHA
           echo $HTTP_PROXY
-          echo $AZURE_RUNNER_HTTP_PROXY
+          echo ${{ env.AZURE_RUNNER_HTTP_PROXY }}
 
       - name: Generate summary
         id: env-setup
