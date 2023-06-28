@@ -4,7 +4,8 @@ on:
   push:
     paths:
       - '**env-test.yml'
-
+env:
+  ENV_VAR: Hello
 jobs:
   build:
     name: Env tests
@@ -28,6 +29,7 @@ jobs:
         run: |
           echo $GITHUB_SHA
           echo $HTTP_PROXY
+          echo ${{ env.ENV_VAR }}
           echo ${{ env.AZURE_RUNNER_HTTP_PROXY }}
 
       - name: Generate summary
