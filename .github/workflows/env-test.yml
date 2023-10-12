@@ -9,7 +9,6 @@ env:
 jobs:
   build:
     name: Env tests
-    #runs-on: [unity-azure-linux-runners]
     runs-on: ubuntu-latest
     permissions:
       contents: read  # For actions/checkout
@@ -42,4 +41,12 @@ jobs:
             echo "| Test | ${{ env.HTTP_PROXY }} |"
             echo "| Original | ${{ env.AZURE_RUNNER_HTTP_PROXY }} |"
           } >> $GITHUB_STEP_SUMMARY 
-      
+
+  deploy:
+    name: Env deploy
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Echo env
+        run: |
+          echo ${{ env.ENV_VAR }}
